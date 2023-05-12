@@ -1,0 +1,15 @@
+<section class="section">
+    <h1>Logar no <span class="span">To-Do-List</span></h1>
+    <form action="" class="form-cadastro">
+        <label for="">E-mail: 
+            <input type="email" name="email" [(ngModel)]="usuario.email">
+        </label>
+        <label for="">Senha: 
+            <input type="{{ mostrarSenha ? 'text' : 'password' }}" id="senha" name="senha" [(ngModel)]="usuario.senha" required>
+            <button class="botao-ocultar-senha" (click)="alternarVisibilidadeSenha()">
+                <span class="icone-ocultar-senha" [class.ocultar]="mostrarSenha"></span>
+            </button>
+        </label>
+        <button type="button" (click)="logar()" class="button-formCadastro">Entrar</button>
+    </form>
+</section>

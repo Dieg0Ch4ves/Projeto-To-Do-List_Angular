@@ -1,0 +1,44 @@
+package com.todolist.ToDoList.service;
+
+
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.todolist.ToDoList.entity.Usuario;
+import com.todolist.ToDoList.repository.UsuarioRepository;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+@Service
+public class AuthService {
+
+	private static final String CHAVE_SECRETA = "minha_chave_secreta";
+
+	private static SecretKey criarChaveSecreta() {
+	    byte[] chave = CHAVE_SECRETA.getBytes(StandardCharsets.UTF_8);
+	    return new SecretKeySpec(chave, SignatureAlgorithm.HS256.getJcaName());
+	}
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public String authenticate(String email, String senha) {
+        Usuario usuario = usuarioRepository.findByEmailAndSenha(email,senha);
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            String token = Jwts.builder()
+                    .setSubject(usuario.getId().toString())
+                    .setExpiration(new Date(System.currentTimeMillis() + 3600000))
+                    .signWith(SignatureAlgorithm.HS256, key)
+                    .compact();
+            return token;
+        }
+        return null;
+    }
+}

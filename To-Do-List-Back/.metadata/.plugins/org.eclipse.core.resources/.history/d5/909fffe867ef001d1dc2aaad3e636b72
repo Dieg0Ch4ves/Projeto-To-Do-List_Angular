@@ -1,0 +1,74 @@
+package com.todolist.ToDoList.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.todolist.ToDoList.controllers.Models.TarefaDTO;
+import com.todolist.ToDoList.entity.Tarefa;
+import com.todolist.ToDoList.entity.Usuario;
+import com.todolist.ToDoList.repository.TarefaRepository;
+import com.todolist.ToDoList.repository.UsuarioRepository;
+
+@RestController
+@RequestMapping("/tarefa")
+@CrossOrigin(origins = "*")
+public class TarefaController {
+
+	@Autowired
+	TarefaRepository tarefaRepository;
+
+	@Autowired
+	UsuarioRepository usuarioRepository;
+
+	@PostMapping("/{idUsuario}")
+	public ResponseEntity<Tarefa> novaTarefa(@PathVariable Long idUsuario, @RequestBody TarefaDTO tarefaTdo) {
+		Usuario usuario = usuarioRepository.findById(idUsuario).get();
+		Tarefa tarefa = new Tarefa(tarefaTdo.titulo(), tarefaTdo.descricao(), tarefaTdo.prioridade(), usuario);
+		Tarefa tarefaCriada = tarefaRepository.save(tarefa);
+		return ResponseEntity.ok(tarefaCriada);
+	}
+
+	@GetMapping("/{idUsuario}")
+	public ResponseEntity<List<Tarefa>> listarTarefa(@PathVariable Long idUsuario) {
+		Usuario usuario = usuarioRepository.findById(idUsuario).get();
+		List<Tarefa> listaUsuario = usuario.getListaTarefa();
+		return ResponseEntity.ok(listaUsuario);
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> atualizarTarefa(@PathVariable Long id, @RequestBody TarefaDTO tarefaDto) {
+		Tarefa tarefa = tarefaRepository.findById(id).get();
+		tarefa.setTitulo(tarefaDto.titulo());
+		tarefa.setDescricao(tarefaDto.descricao());
+		tarefaRepository.save(tarefa);
+		return ResponseEntity.ok(tarefa);
+	}
+
+	@PutMapping("/concluir/{id}")
+	public ResponseEntity<Object> concluir(@PathVariable Long id) {
+		Tarefa tarefa = tarefaRepository.findById(id).get();
+		tarefa.concluir();
+		tarefaRepository.save(tarefa);
+		return ResponseEntity.ok(tarefa);
+	}
+
+	@DeleteMapping("/{idUsuario}/{idTarefa}")
+	public void deletarTarefa(@PathVariable Long idUsuario, @PathVariable int idTarefa) {
+		Usuario usuario = usuarioRepository.findById(idUsuario).get();
+		List<Tarefa> listaUsuario = usuario.getListaTarefa();
+		listaUsuario.remove(idTarefa);
+		usuarioRepository.save(usuario);
+	}
+
+}

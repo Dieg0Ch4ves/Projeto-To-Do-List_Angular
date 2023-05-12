@@ -1,0 +1,80 @@
+.section {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 50px 100px 0px 100px ;
+    justify-items: center;
+}
+
+.section h1 {
+    font-size: 3rem;
+}
+
+.span {
+    color: #ff8008;
+}
+
+.form-cadastro {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+    gap: 20px;
+    justify-items: center;
+    justify-content: center;
+}
+
+.form-cadastro label {
+    font-size: 2rem;
+}
+
+.form-cadastro input {
+    width: 200px;
+    height: 20px;
+    border: 2px solid #ff8008;
+    border-radius: 4px;
+    padding-top: 10px;
+}
+
+.button-formCadastro {
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background-color: #ff8008;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button-formCadastro:hover {
+    background-color: #d46b09;
+}
+
+.botao-ocultar-senha {
+    position: absolute;
+    background-color: #fff;
+    border: none;
+    margin-top: 13px;
+    padding: 10px 10px;
+    font-size: 14px;
+}
+  
+.botao-ocultar-senha:hover {
+    background-color: #fff;
+}
+
+
+.icone-ocultar-senha::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 25px;
+  background-image: url('/assets/imgs/olho.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icone-ocultar-senha.ocultar::before {
+  background-image: url('/assets/imgs/olho-fechado.svg');
+}

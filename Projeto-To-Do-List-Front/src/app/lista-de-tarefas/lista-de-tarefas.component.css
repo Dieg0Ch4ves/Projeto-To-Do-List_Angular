@@ -1,0 +1,175 @@
+section {
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 50px;
+}
+
+section h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+section h1 span {
+  color: #ff8008;
+}
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+td:first-child {
+  width: 5%;
+}
+
+td:nth-child(2) {
+  width: 20%;
+}
+
+td:nth-child(3) {
+  width: 35%;
+}
+
+td:nth-child(4),
+td:nth-child(5),
+td:nth-child(6),
+td:nth-child(7) {
+  width: 10%;
+  text-align: center;
+}
+
+td:last-child {
+  text-transform: capitalize;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+.botao-nova {
+  background-color: rgb(95, 167, 255);
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  border: 2px solid rgb(0, 73, 134);
+  border-radius: 4px;
+}
+
+.botao-nova:hover {
+  background-color: rgb(64, 112, 170);
+}
+
+.botao-alterar {
+  background-color: rgb(95, 167, 255);
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  border: 2px solid rgb(0, 73, 134);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botao-deletar {
+  background-color: rgb(255, 0, 0);
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid rgb(60, 1, 1);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botao-alterar:hover {
+  background-color: rgb(50, 89, 137);
+}
+
+.botao-deletar:hover {
+  background-color: rgb(113, 1, 1);
+}
+
+@media (max-width: 1200px) {
+  section {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 955px) {
+  section {
+    margin: 20px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+
+  .botao-nova,
+  .botao-alterar,
+  .botao-deletar {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    margin: 20px;
+  }
+
+  table {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    display: block;
+    width: 100%;
+  }
+
+  th {
+    text-align: center;
+  }
+
+  td:nth-child(2),
+  td:nth-child(3),
+  td:nth-child(4),
+  td:nth-child(5),
+  td:nth-child(6),
+  td:nth-child(7) {
+    text-align: left;
+  }
+
+  .botao-nova,
+  .botao-alterar,
+  .botao-deletar {
+    font-size: 12px;
+    padding: 8px;
+    display: block;
+    width: 100%;
+  }
+}

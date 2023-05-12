@@ -1,0 +1,35 @@
+<section class="section">
+    <h1>Lista de <span>Tarefas</span></h1>
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Data de Criação</th>
+            <th>Data de Conclusão</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Funções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tarefa of ordenarTarefasPorPrioridade()">
+            <td>{{tarefa.id}}</td>
+            <td>{{tarefa.titulo}}</td>
+            <td>{{tarefa.descricao}}</td>
+            <td>{{tarefa.dataCriacao | date:'dd/MM/yyyy'}}</td>
+            <td>{{tarefa.dataConclusao | date:'dd/MM/yyyy'}}</td>
+            <td>{{tarefa.prioridade}}</td>
+            <td>
+              {{tarefa.concluida ? 'Concluída' : 'Em andamento'}}
+              <button class="botao-alterar" (click)="concluirTarefa(tarefa.id)">Concluir</button>
+          </td>
+            <td><button [routerLink]="['/tarefas', tarefa.id]" class="botao-alterar">Alterar</button><button class="botao-deletar" (click)="deletarTarefa(tarefa.id)">Deletar</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <a routerLink="/criarTarefa" class="botao-nova">Criar Nova Tarefa</a>
+      </div>
+</section>

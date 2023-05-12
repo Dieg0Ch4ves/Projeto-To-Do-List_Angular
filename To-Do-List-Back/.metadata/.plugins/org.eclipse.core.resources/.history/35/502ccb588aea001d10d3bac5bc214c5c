@@ -1,0 +1,57 @@
+package com.todolist.ToDoList.controllers;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.todolist.ToDoList.controllers.Models.UsuarioDTO;
+import com.todolist.ToDoList.entity.Usuario;
+import com.todolist.ToDoList.repository.UsuarioRepository;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/usuario")
+public class UsuarioController {
+
+	@Autowired
+	UsuarioRepository usuarioRepository;
+
+	@PostMapping
+	public ResponseEntity<Object> novoUsuario(@Valid @RequestBody UsuarioDTO usuarioDto) {
+		Usuario usuario = new Usuario(usuarioDto.nome(), usuarioDto.email(), usuarioDto.senha(), new ArrayList<>());
+		usuarioRepository.save(usuario);
+		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> usuarioPorId(@PathVariable Long id) {
+		Usuario usuario = usuarioRepository.findById(id).get();
+		return ResponseEntity.ok(usuario);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDto) {
+		Usuario usuario = usuarioRepository.findById(id).get();
+		usuario.setNome(usuarioDto.nome());
+		usuario.setEmail(usuarioDto.email());
+		usuario.setSenha(usuarioDto.senha());
+		return ResponseEntity.ok(usuario);
+	}
+	
+	@DeleteMapping
+	public void deletarUsuario(@PathVariable Long id) {
+		usuarioRepository.deleteById(id);
+	}
+
+}

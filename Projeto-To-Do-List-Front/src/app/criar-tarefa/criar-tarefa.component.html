@@ -1,0 +1,19 @@
+<section class="section">
+    <h1>Criar uma <span>Tarefa</span></h1>
+    <form class="form" (ngSubmit)="criarTarefa()">
+        <label for="">Título: 
+            <input type="text" name="titulo" [(ngModel)]="tarefa.titulo">
+        </label> 
+        <label for="">Descrição: 
+            <textarea id="" cols="30" rows="0" name="descricao" [(ngModel)]="tarefa.descricao"></textarea>
+        </label>
+        <label for="prioridade">Prioridade:
+            <select name="prioridade" [(ngModel)]="tarefa.prioridade">
+                <option value="0">Alta</option>
+                <option value="1">Média</option>
+                <option value="2">Baixa</option>
+            </select>
+        </label>
+        <button type="submit">Criar</button>
+    </form>
+</section>

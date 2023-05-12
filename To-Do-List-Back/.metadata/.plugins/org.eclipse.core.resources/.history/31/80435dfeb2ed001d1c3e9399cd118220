@@ -1,0 +1,49 @@
+package com.todolist.ToDoList.service;
+
+import java.util.Date;
+
+import javax.crypto.SecretKey;
+
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.todolist.ToDoList.entity.Usuario;
+import com.todolist.ToDoList.repository.UsuarioRepository;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
+@Service
+public class AuthService {
+
+	private static SecretKey criarChaveSecreta() {
+		return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	}
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
+	public String authenticate(String email, String senha) {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		
+		if(usuario != null) {
+			return BCrypt.checkpw(senha, usuario.getSenha());
+		}
+		
+		if (usuario != null && usuario.getSenha().equals(senha)) {
+			String token = Jwts.builder().setSubject(usuario.getId().toString())
+					.setExpiration(new Date(System.currentTimeMillis() + 3600000))
+					.signWith(criarChaveSecreta(), SignatureAlgorithm.HS256).compact();
+			return token;
+		}
+		return null;
+	}
+
+	public static Claims parseToken(String token, String secret) throws JwtException {
+		return Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody();
+	}
+}
