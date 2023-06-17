@@ -57,7 +57,7 @@
     padding: 10px 10px;
     font-size: 14px;
 }
-  
+
 .botao-ocultar-senha:hover {
     background-color: #fff;
 }
@@ -78,4 +78,14 @@
 
 .icone-ocultar-senha.ocultar::before {
   background-image: url('/assets/imgs/olho-fechado.svg');
+}
+
+@media(max-width: 750px) {
+  .section h1 {
+    font-size: 2rem;
+  }
+
+ .form-cadastro label {
+   font-size: 1.5rem;
+ }
 }

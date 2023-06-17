@@ -1,5 +1,0 @@
-package com.todolist.ToDoList.controllers.Models;
-
-public class LoginDTO {
-
-}

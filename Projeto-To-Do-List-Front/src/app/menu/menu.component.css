@@ -37,7 +37,7 @@
     top: 18px;
     right: -25px;
     border-radius: 8px;
-    background: rgb(65, 65, 65);  
+    background: rgb(65, 65, 65);
     transition: 0.3s;
 }
 
@@ -63,7 +63,7 @@
         top: 14px;
         right: -21px;
     }
-    
+
     .nav-barra a:hover::after {
         display: inline-block;
     }
@@ -71,4 +71,30 @@
     .nav-barra a{
         font-size: 2rem;
     }
+}
+
+@media (max-width: 750px) {
+  .nav-menu h1 {
+    font-size: 1rem;
+    margin-left: 20px;
+  }
+
+  .nav-barra a {
+    font-size: 1rem;
+  }
+
+  .nav-barra {
+    margin-right: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .nav-barra a:hover::after {
+    display: none;
+  }
+
+  .nav-barra a:hover {
+    color: #000;
+  }
 }
